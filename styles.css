@@ -270,3 +270,48 @@ nav {
   color: #fff;
   text-decoration: none;
 }
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .carousel-slide {
+    height: 200px;
+  }
+
+  .projects h2 {
+    font-size: 1.8rem;
+  }
+
+  .project-card {
+    padding: 15px;
+  }
+
+  .project-card img {
+    height: 150px;
+  }
+
+  .footer {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header .container {
+    flex-direction: column;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .carousel-slide {
+    height: 150px;
+  }
+
+  .projects h2 {
+    font-size: 1.5rem;
+  }
+
+  .project-card img {
+    height: 120px;
+  }
+}
