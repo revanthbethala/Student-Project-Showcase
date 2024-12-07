@@ -33,7 +33,7 @@ nav {
   color: #fff;
   text-decoration: none;
   margin-left: 20px;
-  padding: 30px;
+  padding: 10px;
 }
 
 .carousel {
@@ -125,10 +125,10 @@ nav {
   }
   to {
     transform: translateX(-100%);
-    -webkit-transform: ;
-    -moz-transform: ;
-    -ms-transform: ;
-    -o-transform: ;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
   }
 }
 
@@ -300,7 +300,7 @@ nav {
 
   .nav {
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
   }
 
   .carousel-slide {
