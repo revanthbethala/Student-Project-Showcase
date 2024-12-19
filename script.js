@@ -127,11 +127,11 @@ for (let i = 2; i < projects.length; i++) {
   const slide = document.createElement("div");
   slide.classList.add("carousel-slide");
   slide.innerHTML = `
-    <img src="${projects[i].image}" alt="${projects[i].name}">
-    <div class="details">
-      <h3>${projects[i].name}</h3>
-    </div>
-  `;
+      <img src="${projects[i].image}" alt="${projects[i].name}">
+      <div class="details">
+        <h3>${projects[i].name}</h3>
+      </div>
+    `;
   carouselContainer.appendChild(slide);
 }
 const projectCards = document.getElementById("projectCards");
@@ -140,14 +140,153 @@ projects.forEach((project) => {
   const card = document.createElement("div");
   card.classList.add("project-card");
   card.innerHTML = `
-   <img src="${project.image}" alt="${project.name}">
-     <h3>${project.name}</h3>
-     <p>${project.description}</p>
-     <ul>
-       ${project.features.map((feature) => `<li>${feature}</li>`).join("")}
-     </ul>
-     <p><strong>Tech Stack:</strong> ${project.techStack.join(", ")}</p>
-     <p><strong>Timeline:</strong> ${project.timeline}</p>
-   `;
+     <img src="${project.image}" alt="${project.name}">
+       <h3>${project.name}</h3>
+       <p>${project.description}</p>
+       <ul>
+         ${project.features.map((feature) => `<li>${feature}</li>`).join("")}
+       </ul>
+       <p><strong>Tech Stack:</strong> ${project.techStack.join(", ")}</p>
+       <p><strong>Timeline:</strong> ${project.timeline}</p>
+     `;
   projectCards.appendChild(card);
 });
+// Reference to the search input field
+const searchInput = document.getElementById("searchInput");
+
+// Function to render projects based on search term
+function renderProjects(searchTerm = "") {
+  const projectCards = document.getElementById("projectCards");
+  projectCards.innerHTML = ""; // Clear existing project cards
+
+  // Filter the projects based on search term
+  const filteredProjects = projects.filter((project) =>
+    project.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Loop through filtered projects and add them to the page
+  filteredProjects.forEach((project) => {
+    const card = document.createElement("div");
+    card.classList.add("project-card");
+    card.innerHTML = `
+      <img src="${project.image}" alt="${project.name}">
+      <h3>${project.name}</h3>
+      <p>${project.description}</p>
+      <ul>
+        ${project.features.map((feature) => `<li>${feature}</li>`).join("")}
+      </ul>
+      <p><strong>Tech Stack:</strong> ${project.techStack.join(", ")}</p>
+      <p><strong>Timeline:</strong> ${project.timeline}</p>
+    `;
+    projectCards.appendChild(card);
+  });
+}
+
+// Initial render of all projects
+renderProjects();
+
+// Event listener for search input
+searchInput.addEventListener("input", () => {
+  const searchTerm = searchInput.value.trim(); // Get the current value of the search input
+  renderProjects(searchTerm); // Render projects that match the search term
+});
+// Get references to the filter dropdowns
+const techStackFilter = document.getElementById("techStackFilter");
+const timelineFilter = document.getElementById("timelineFilter");
+
+// Function to render the filter options dynamically based on unique tech stacks and timelines
+function renderFilters() {
+  const techStackOptions = new Set();
+  const timelineOptions = new Set();
+
+  // Loop through the projects to collect unique tech stacks and timelines
+  projects.forEach((project) => {
+    project.techStack.forEach((tech) => techStackOptions.add(tech));
+    timelineOptions.add(project.timeline);
+  });
+
+  // Populate tech stack filter dropdown
+  techStackOptions.forEach((tech) => {
+    const option = document.createElement("option");
+    option.value = tech;
+    option.textContent = tech;
+    techStackFilter.appendChild(option);
+  });
+
+  // Populate timeline filter dropdown
+  timelineOptions.forEach((timeline) => {
+    const option = document.createElement("option");
+    option.value = timeline;
+    option.textContent = timeline;
+    timelineFilter.appendChild(option);
+  });
+}
+
+// Function to render projects based on the search term and selected filters
+function renderProjects(
+  searchTerm = "",
+  selectedTechStack = "",
+  selectedTimeline = ""
+) {
+  const projectCards = document.getElementById("projectCards");
+  projectCards.innerHTML = ""; // Clear existing project cards
+
+  // Filter the projects based on search term, tech stack, and timeline
+  const filteredProjects = projects.filter((project) => {
+    const matchesSearchTerm =
+      project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTechStack = selectedTechStack
+      ? project.techStack.includes(selectedTechStack)
+      : true;
+    const matchesTimeline = selectedTimeline
+      ? project.timeline === selectedTimeline
+      : true;
+
+    return matchesSearchTerm && matchesTechStack && matchesTimeline;
+  });
+
+  // Loop through filtered projects and add them to the page
+  filteredProjects.forEach((project) => {
+    const card = document.createElement("div");
+    card.classList.add("project-card");
+    card.innerHTML = `
+      <img src="${project.image}" alt="${project.name}">
+      <h3>${project.name}</h3>
+      <p>${project.description}</p>
+      <ul>
+        ${project.features.map((feature) => `<li>${feature}</li>`).join("")}
+      </ul>
+      <p><strong>Tech Stack:</strong> ${project.techStack.join(", ")}</p>
+      <p><strong>Timeline:</strong> ${project.timeline}</p>
+    `;
+    projectCards.appendChild(card);
+  });
+}
+
+// Event listener for search input
+searchInput.addEventListener("input", () => {
+  const searchTerm = searchInput.value.trim();
+  const selectedTechStack = techStackFilter.value;
+  const selectedTimeline = timelineFilter.value;
+  renderProjects(searchTerm, selectedTechStack, selectedTimeline); // Render filtered projects
+});
+
+// Event listeners for filter dropdowns
+techStackFilter.addEventListener("change", () => {
+  const searchTerm = searchInput.value.trim();
+  const selectedTechStack = techStackFilter.value;
+  const selectedTimeline = timelineFilter.value;
+  renderProjects(searchTerm, selectedTechStack, selectedTimeline); // Render filtered projects
+});
+
+timelineFilter.addEventListener("change", () => {
+  const searchTerm = searchInput.value.trim();
+  const selectedTechStack = techStackFilter.value;
+  const selectedTimeline = timelineFilter.value;
+  renderProjects(searchTerm, selectedTechStack, selectedTimeline); // Render filtered projects
+});
+
+// Initial render of filters and projects
+renderFilters();
+renderProjects();
