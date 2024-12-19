@@ -7,7 +7,9 @@ body {
   color: #333;
   overflow-x: hidden;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -37,8 +39,7 @@ nav {
   margin-left: 20px;
   padding: 10px 15px; /* Reduced padding for better fit */
 }
-
-/* Carousel */
+/* Carousel Section */
 .carousel {
   position: relative;
   background: #f9f9f9;
@@ -46,7 +47,7 @@ nav {
   overflow: hidden;
 }
 
-#carousel > h2 {
+.carousel h2 {
   text-align: center;
   font-size: 2rem;
   font-weight: 600;
@@ -57,13 +58,22 @@ nav {
 .carousel-container {
   display: flex;
   gap: 20px;
-  animation: scroll 20s linear infinite;
+  animation: scroll 20s linear infinite; /* Animation applied */
 }
 
-.carousel-container:hover {
-  animation-play-state: paused;
+/* Ensure animation pauses on hover */
+
+/* Define the keyframes for scrolling effect */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
+/* Individual Slide */
 .carousel-slide {
   position: relative;
   min-width: 500px;
@@ -79,6 +89,7 @@ nav {
   transition: all 0.3s ease;
 }
 
+/* Optional: Text details inside the carousel */
 .carousel-slide .details {
   position: absolute;
   text-align: center;
@@ -248,22 +259,32 @@ nav {
 
 .project-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
   gap: 20px;
+  padding:20px 5px;
+  overflow-x: hidden;
 }
 
 .project-card {
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
   border-radius: 15px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -ms-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.15);
+  -webkit-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -o-transform: translateY(-5px);
 }
 
 .project-card img {
