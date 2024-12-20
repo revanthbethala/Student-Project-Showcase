@@ -118,6 +118,19 @@ const projects = [
   },
 ];
 
+const carouselContainer = document.getElementById("carouselContainer");
+
+for (let i = 2; i < projects.length; i++) {
+  const slide = document.createElement("div");
+  slide.classList.add("carousel-slide");
+  slide.innerHTML = `
+  <img src="${projects[i].image}" alt="${projects[i].name}">
+      <div class="details">
+        <h3>${projects[i].name}</h3>
+      </div>`;
+  carouselContainer.appendChild(slide);
+}
+
 // Reference to the search input field
 const searchInput = document.getElementById("searchInput");
 const techStackFilter = document.getElementById("techStackFilter");
