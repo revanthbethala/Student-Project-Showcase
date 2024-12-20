@@ -24,9 +24,34 @@
       <h2>LATEST PROJECTS</h2>
       <div class="carousel-container" id="carouselContainer"></div>
     </section>
-
     <section id="projects" class="projects">
       <h2>Projects</h2>
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search projects by name..."
+        />
+      </div>
+      <section id="filters" class="filters">
+        <h2>Filter Projects</h2>
+        <div class="filter-container">
+          <div class="filter-group">
+            <label for="techStackFilter">Tech Stack:</label>
+            <select id="techStackFilter">
+              <option value="">Select Tech Stack</option>
+              <!-- Dynamic options will be added by JavaScript -->
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="timelineFilter">Timeline:</label>
+            <select id="timelineFilter">
+              <option value="">Select Timeline</option>
+              <!-- Dynamic options will be added by JavaScript -->
+            </select>
+          </div>
+        </div>
+      </section>
       <div class="project-cards" id="projectCards"></div>
     </section>
 
